@@ -20,6 +20,6 @@ public static class InitMongoDb
             ?? throw new Exception("users is null");
 
         await dbAccess.DeleteUsersAsync(users);
-        await dbAccess.CreateUsers(users);
+        await dbAccess.CreateUsersAsync(users);
     }
 }

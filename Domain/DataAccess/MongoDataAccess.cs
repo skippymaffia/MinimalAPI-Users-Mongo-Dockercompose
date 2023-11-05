@@ -55,22 +55,36 @@ public class MongoDataAccess : IMongoDataAccess
         return null;
     }
 
-    public Task CreateUsers(List<User> users)
+    public Task<long> CreateUsersAsync(List<User> users)
     {
         var table = GetMongoTable();
 
-        return table.InsertManyAsync(users);
+        table.InsertManyAsync(users);
+
+        return Task.FromResult((long)users.Count);
     }
 
-    public Task CreateUser(User user)
+    public Task<long> CreateUserAsync(User? user)
     {
+        if (user is null)
+        {
+            return Task.FromResult(0L);
+        }
+
         var table = GetMongoTable();
 
-        return table.InsertOneAsync(user);
+        table.InsertOneAsync(user);
+
+        return Task.FromResult(1L);
     }
 
-    public async Task<long> UpdateUserAsync(User user)
+    public async Task<long> UpdateUserAsync(User? user)
     {
+        if (user is null)
+        {
+            return 0L;
+        }
+
         var table = GetMongoTable();
         var filter = Builders<User>.Filter.Eq("Id", user.Id);
         var update =

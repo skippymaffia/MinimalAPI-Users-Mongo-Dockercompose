@@ -13,7 +13,8 @@ public static class Endpoints
         string databaseName,
         string tableName)
     {
-        var dbAccess = new MongoDataAccess(connectionString, databaseName, tableName);
+        IMongoDataAccess dbAccess =
+            new MongoDataAccess(connectionString, databaseName, tableName);
 
         app.MapGet(
             API_ROOT,
@@ -27,7 +28,7 @@ public static class Endpoints
 
         app.MapPost(
             API_ROOT,
-            async ([FromBody] User u) => await CreateUserAsync(dbAccess, u))
+            async ([FromBody] User? u) => await CreateUserAsync(dbAccess, u))
             .WithName("CreateUser");
 
         app.MapPut(
@@ -39,6 +40,18 @@ public static class Endpoints
             API_ROOT + "/{id}",
             async (int id) => await DeleteUserAsync(dbAccess, id))
             .WithName("DeleteUser");
+    }
+
+    public static async Task<IResult> CreateUserAsync(IMongoDataAccess dbAccess, User? u)
+    {
+        if (u is null)
+        {
+            return Results.BadRequest("User can not be null!");
+        }
+
+        var result = await dbAccess.CreateUserAsync(u);
+
+        return Results.Ok(result);
     }
 
     public static async Task<IResult> DeleteUserAsync(IMongoDataAccess dbAccess, int id)
@@ -58,18 +71,6 @@ public static class Endpoints
         await dbAccess.UpdateUserAsync(u);
 
         return Results.Accepted(API_ROOT + "/{id}", u.Id);
-    }
-
-    public static async Task<IResult> CreateUserAsync(IMongoDataAccess dbAccess, User? u)
-    {
-        if (u is null)
-        {
-            return Results.BadRequest("User can not be null!");
-        }
-
-        await dbAccess.CreateUser(u);
-
-        return Results.Created(API_ROOT + "/{id}", u.Id);
     }
 
     public static async Task<IResult> GetUserByIdAsync(IMongoDataAccess dbAccess, int id)

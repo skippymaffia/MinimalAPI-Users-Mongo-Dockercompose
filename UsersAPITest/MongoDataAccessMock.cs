@@ -8,18 +8,23 @@ public class MongoDataAccessMock : IMongoDataAccess
 {
     private readonly List<User> _users = new();
 
-    public Task CreateUser(User user)
+    public Task<long> CreateUserAsync(User? user)
     {
+        if (user == null)
+        {
+            return Task.FromResult(0L);
+        }
+
         _users.Add(user);
 
-        return Task.CompletedTask;
+        return Task.FromResult(1L);
     }
 
-    public Task CreateUsers(List<User> users)
+    public Task<long> CreateUsersAsync(List<User> users)
     {
         _users.AddRange(users);
 
-        return Task.CompletedTask;
+        return Task.FromResult((long)users.Count);
     }
 
     public Task<long> DeleteUserAsync(int id)
@@ -62,8 +67,13 @@ public class MongoDataAccessMock : IMongoDataAccess
         return Task.FromResult(_users);
     }
 
-    public Task<long> UpdateUserAsync(User user)
+    public Task<long> UpdateUserAsync(User? user)
     {
+        if (user is null)
+        {
+            return Task.FromResult(0L);
+        }
+
         var usr = _users.Find(x => x.Id == user.Id);
         if (usr is not null)
         {
