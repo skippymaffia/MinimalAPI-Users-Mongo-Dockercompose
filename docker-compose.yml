@@ -1,0 +1,25 @@
+version: '3.4'
+
+networks:
+  local-net:
+
+services:
+    usersmongodb:
+        container_name: "users-mongo-container"
+        image: mongo:latest
+        ports:
+            - "27017:27017"
+        networks:
+            - local-net    
+    usersapi:
+        container_name: "users-api-container"
+        image: ${DOCKER_REGISTRY-}usersapi
+        ports:
+            - "8080:80" 
+        build:
+          context: .
+          dockerfile: UsersAPI/Dockerfile
+        depends_on:
+            - "usersmongodb"
+        networks:
+            - local-net
