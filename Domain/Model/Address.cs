@@ -6,19 +6,19 @@ namespace Domain.Model;
 public class Address
 {
     [JsonPropertyName("street")]
-    public string Street { get; set; }
+    public string? Street { get; set; }
 
     [JsonPropertyName("suite")]
-    public string Suite { get; set; }
+    public string? Suite { get; set; }
 
     [JsonPropertyName("city")]
-    public string City { get; set; }
+    public string? City { get; set; }
 
     [JsonPropertyName("zipcode")]
-    public string ZipCode { get; set; }
+    public string? ZipCode { get; set; }
 
     [JsonPropertyName("geo")]
-    public Geo Geo { get; set; }
+    public Geo? Geo { get; set; }
 
 
 }

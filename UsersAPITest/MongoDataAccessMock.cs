@@ -62,7 +62,7 @@ public class MongoDataAccessMock : IMongoDataAccess
         return Task.FromResult(user);
     }
 
-    public Task<List<User>> GetUsersAsync()
+    public Task<List<User>> GetAllUsersAsync()
     {
         return Task.FromResult(_users);
     }

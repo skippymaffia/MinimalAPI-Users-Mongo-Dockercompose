@@ -7,7 +7,7 @@ public interface IMongoDataAccess
 {
     IMongoCollection<User> GetMongoTable();
 
-    Task<List<User>> GetUsersAsync();
+    Task<List<User>> GetAllUsersAsync();
     Task<User?> GetUserAsync(int id);
 
     Task<long> CreateUserAsync(User? user);

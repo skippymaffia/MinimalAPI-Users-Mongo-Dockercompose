@@ -34,7 +34,7 @@ public class MongoDataAccess : IMongoDataAccess
         }
     }
 
-    public async Task<List<User>> GetUsersAsync()
+    public async Task<List<User>> GetAllUsersAsync()
     {
         var table = GetMongoTable();
         var users = await table.FindAsync(_ => true);
