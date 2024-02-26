@@ -25,4 +25,4 @@ app.AddEndpoints(connectionString!, databaseName!, tableName!);
 
 app.Run();
 
-public partial class Program { }
+//public partial class Program { }
