@@ -2,7 +2,7 @@
 
 public static class ApiConst
 {
-    public static readonly string API_ROOT = "/api/users";
-    public static readonly string NULL_USER_ERROR = "User can not be null!";
-    public static readonly string USER_NOT_FOUND_ERROR = "User not found!";
+    public const string ApiRoot = "/api/users";
+    public const string NullUserError = "User can not be null!";
+    public const string UserNotFoundError = "User not found!";
 }

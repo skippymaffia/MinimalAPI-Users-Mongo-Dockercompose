@@ -1,4 +1,4 @@
-using Api;
+using UsersAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -2,7 +2,7 @@
 using Domain.Model;
 using System.Text.Json;
 
-namespace Api;
+namespace UsersAPI;
 
 public static class InitMongoDb
 {

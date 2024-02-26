@@ -1,7 +1,7 @@
 ﻿using Domain.Model;
 using MongoDB.Driver;
 
-namespace Domain.DataAccess;
+namespace Domain.DataAccess.Mongo;
 
 public interface IMongoDataAccess
 {

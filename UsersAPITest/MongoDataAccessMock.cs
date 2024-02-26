@@ -1,8 +1,8 @@
-﻿using Domain.DataAccess;
+﻿using Domain.DataAccess.Mongo;
 using Domain.Model;
 using MongoDB.Driver;
 
-namespace ApiTest;
+namespace UsersAPITest;
 
 public class MongoDataAccessMock : IMongoDataAccess
 {

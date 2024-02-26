@@ -1,9 +1,9 @@
 ﻿using Domain.DataAccess;
+using Domain.DataAccess.Mongo;
 using Domain.Model;
 using Microsoft.AspNetCore.Mvc;
-using UsersAPI;
 
-namespace Api;
+namespace UsersAPI;
 
 public static class Endpoints
 {
@@ -17,27 +17,27 @@ public static class Endpoints
             new MongoDataAccess(connectionString, databaseName, tableName);
 
         app.MapGet(
-            ApiConst.API_ROOT,
+            ApiConst.ApiRoot,
             async () => await ApiFunctions.GetAllUsersAsync(dbAccess))
             .WithName("GetAllUsers");
 
         app.MapGet(
-            ApiConst.API_ROOT + "/{id}",
+            ApiConst.ApiRoot + "/{id}",
             async (int id) => await ApiFunctions.GetUserByIdAsync(dbAccess, id))
             .WithName("GetUserById");
 
         app.MapPost(
-            ApiConst.API_ROOT,
+            ApiConst.ApiRoot,
             async ([FromBody] User? u) => await ApiFunctions.CreateUserAsync(dbAccess, u))
             .WithName("CreateUser");
 
         app.MapPut(
-            ApiConst.API_ROOT,
+            ApiConst.ApiRoot,
             async ([FromBody] User u) => await ApiFunctions.UpdateUserAsync(dbAccess, u))
             .WithName("UpdateUser");
 
         app.MapDelete(
-            ApiConst.API_ROOT + "/{id}",
+            ApiConst.ApiRoot + "/{id}",
             async (int id) => await ApiFunctions.DeleteUserAsync(dbAccess, id))
             .WithName("DeleteUser");
     }

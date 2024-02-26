@@ -1,4 +1,4 @@
-﻿using Domain.DataAccess;
+﻿using Domain.DataAccess.Mongo;
 using Domain.Model;
 
 namespace UsersAPI;
@@ -18,7 +18,7 @@ public static class ApiFunctions
 
         if (user == null)
         {
-            return Results.BadRequest(ApiConst.USER_NOT_FOUND_ERROR);
+            return Results.BadRequest(ApiConst.UserNotFoundError);
         }
 
         return Results.Ok(user);
@@ -28,7 +28,7 @@ public static class ApiFunctions
     {
         if (u is null)
         {
-            return Results.BadRequest(ApiConst.NULL_USER_ERROR);
+            return Results.BadRequest(ApiConst.NullUserError);
         }
 
         var result = await dbAccess.CreateUserAsync(u);
@@ -40,18 +40,18 @@ public static class ApiFunctions
     {
         await dbAccess.DeleteUserAsync(id);
 
-        return Results.Accepted(ApiConst.API_ROOT + "/{id}", id);
+        return Results.Accepted(ApiConst.ApiRoot + "/{id}", id);
     }
 
     public static async Task<IResult> UpdateUserAsync(IMongoDataAccess dbAccess, User? u)
     {
         if (u is null)
         {
-            return Results.BadRequest(ApiConst.NULL_USER_ERROR);
+            return Results.BadRequest(ApiConst.NullUserError);
         }
 
         await dbAccess.UpdateUserAsync(u);
 
-        return Results.Accepted(ApiConst.API_ROOT + "/{id}", u.Id);
+        return Results.Accepted(ApiConst.ApiRoot + "/{id}", u.Id);
     }
 }

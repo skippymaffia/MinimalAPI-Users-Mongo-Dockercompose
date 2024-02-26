@@ -18,7 +18,7 @@ public class User
     public string? Email { get; set; }
 
     [JsonPropertyName("address")]
-    public Address? Adress { get; set; }
+    public Address? Address { get; set; }
 
     [JsonPropertyName("phone")]
     public string? Phone { get; set; }
